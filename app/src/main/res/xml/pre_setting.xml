@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <Preference
+        android:key="preSetDir"
+        android:title="@string/set_dir"/>
+
+    <Preference
+        android:key="preDeleteAll"
+        android:title="@string/apk_all_delete"
+        android:summary="@string/apk_all_delete_sum" />
+
+</PreferenceScreen>

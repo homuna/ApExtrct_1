@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AppExtractor</string>
+
+    <!-- pre_setting -->
+    <string name="apk_all_delete">APK 전부삭제</string>
+    <string name="apk_all_delete_sum">설정한 폴더의 apk를 전부 삭제합니다.</string>
+    <string name="set_dir">APK 다운로드 폴더 지정</string>
+</resources>

@@ -1,6 +1,6 @@
 package com.sto.AppExtractor;
 
-import android.Manifest;
+import  android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -16,18 +16,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import net.rdrei.android.dirchooser.DirectoryChooserConfig;
-import net.rdrei.android.dirchooser.DirectoryChooserFragment;
+import com.codekidlabs.storagechooser.StorageChooser;
 
 import java.security.Permission;
 
 
-public class SettingActivity extends PreferenceActivity implements DirectoryChooserFragment.OnFragmentInteractionListener {
+public class SettingActivity extends PreferenceActivity  {
 
     private Preference perfDirPath;
     private Preference perfAllDelete;
     private PreferenceData preferenceData;
-    private DirectoryChooserFragment mDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,22 +43,24 @@ public class SettingActivity extends PreferenceActivity implements DirectoryChoo
         perfDirPath.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                final DirectoryChooserConfig chooserConfig = DirectoryChooserConfig.builder()
-                        .newDirectoryName("AppExtractor")
-                        .allowReadOnlyDirectory(false)
-                        .allowNewDirectoryNameModification(true)
-                        .initialDirectory(preferenceData.getDirPath())
+                final StorageChooser chooser = new StorageChooser.Builder()
+                        .withActivity(SettingActivity.this)
+                        .withFragmentManager(getFragmentManager())
+                        .withMemoryBar(true)
+                        .allowCustomPath(true)
+                        .setType(StorageChooser.DIRECTORY_CHOOSER)
                         .build();
-                mDialog = DirectoryChooserFragment.newInstance(chooserConfig);
 
-                int permission = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (permission == PackageManager.PERMISSION_DENIED) {
-                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
-                    } else {
-                        mDialog.show(getFragmentManager(), null);
+                chooser.show();
+
+                chooser.setOnSelectListener(new StorageChooser.OnSelectListener() {
+                    @Override
+                    public void onSelect(String path) {
+                        preferenceData.setDirPath(path);
+                        perfDirPath.setSummary(path);
                     }
-                }
+                });
+
                 return false;
             }
         });
@@ -74,17 +74,6 @@ public class SettingActivity extends PreferenceActivity implements DirectoryChoo
         });
     }
 
-    @Override
-    public void onSelectDirectory(@NonNull String path) {
-        preferenceData.setDirPath(path);
-        perfDirPath.setSummary(path);
-        mDialog.dismiss();
-    }
-
-    @Override
-    public void onCancelChooser() {
-        mDialog.dismiss();
-    }
 
     private void allDeleteDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -98,6 +87,7 @@ public class SettingActivity extends PreferenceActivity implements DirectoryChoo
             }
         });
         builder.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }

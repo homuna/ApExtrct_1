@@ -80,6 +80,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.CustomViewHolder
             appName = itemView.findViewById(R.id.appName);
             appPackage = itemView.findViewById(R.id.appPackage);
             appExtract = itemView.findViewById(R.id.appExtract);
+            
         }
     }
 

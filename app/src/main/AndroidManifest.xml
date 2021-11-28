@@ -41,7 +41,6 @@
         </activity>
 
         <activity android:name="com.sto.AppExtractor.SettingActivity"/>
-        <activity android:name="net.rdrei.android.dirchooser.DirectoryChooserActivity" />
     </application>
 
 </manifest>

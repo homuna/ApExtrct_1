@@ -60,7 +60,6 @@ public class SettingActivity extends PreferenceActivity  {
                         perfDirPath.setSummary(path);
                     }
                 });
-
                 return false;
             }
         });

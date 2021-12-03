@@ -43,23 +43,23 @@ public class SettingActivity extends PreferenceActivity  {
         perfDirPath.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                final StorageChooser chooser = new StorageChooser.Builder()
-                        .withActivity(SettingActivity.this)
-                        .withFragmentManager(getFragmentManager())
-                        .withMemoryBar(true)
-                        .allowCustomPath(true)
-                        .setType(StorageChooser.DIRECTORY_CHOOSER)
-                        .build();
-
-                chooser.show();
-
-                chooser.setOnSelectListener(new StorageChooser.OnSelectListener() {
-                    @Override
-                    public void onSelect(String path) {
-                        preferenceData.setDirPath(path);
-                        perfDirPath.setSummary(path);
-                    }
-                });
+//                StorageChooser chooser = new StorageChooser.Builder()
+//                        .withActivity(SettingActivity.this)
+//                        .withFragmentManager(getFragmentManager())
+//                        .withMemoryBar(true)
+//                        .allowCustomPath(true)
+//                        .setType(StorageChooser.DIRECTORY_CHOOSER)
+//                        .build();
+//
+//               chooser.show();
+//
+//                chooser.setOnSelectListener(new StorageChooser.OnSelectListener() {
+//                    @Override
+//                    public void onSelect(String path) {
+//                        preferenceData.setDirPath(path);
+//                        perfDirPath.setSummary(path);
+//                    }
+//                });
                 return false;
             }
         });
